@@ -1,4 +1,5 @@
 <script setup>
+import MacroBars from "./MacroBars.vue";
 import { computed } from "vue";
 const props = defineProps({
   eaten: Number,
@@ -45,6 +46,16 @@ const calcCalories = computed(function () {
         Remaining
       </text>
     </svg>
+    <div class="flex flex-col px-2 pb-2">
+      <MacroBars
+        :protein="102"
+        :protein-goal="101"
+        :carb="200"
+        :carb-goal="500"
+        :fat="4"
+        :fat-goal="100"
+      />
+    </div>
   </div>
 </template>
 <style scoped></style>
