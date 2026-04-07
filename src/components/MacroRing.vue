@@ -5,11 +5,11 @@ const props = defineProps({
   goal: Number,
 });
 
+const remainingCalories = computed(() => props.goal - props.eaten);
+
 const calcCalories = computed(function () {
   return (props.eaten / props.goal) * 188;
 });
-
-console.log(calcCalories);
 </script>
 <template>
   <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -32,6 +32,18 @@ console.log(calcCalories);
         :stroke-dasharray="`${calcCalories} ${188 - calcCalories}`"
         stroke-dashoffset="-47"
       ></circle>
+      <text x="50" y="50" text-anchor="middle" dominant-baseline="middle">
+        {{ remainingCalories }}
+      </text>
+      <text
+        font-size="5"
+        x="50"
+        y="55"
+        text-anchor="middle"
+        dominant-baseline="hanging"
+      >
+        Remaining
+      </text>
     </svg>
   </div>
 </template>
