@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { searchFood } from "../services/edamamService";
 
 export const useFoodStore = defineStore("food", () => {
   const eaten = ref(0);
@@ -10,12 +11,16 @@ export const useFoodStore = defineStore("food", () => {
   const proteinGoal = ref(0);
   const carbGoal = ref(0);
   const fatGoal = ref(0);
+  const searchResults = ref([]);
 
   function setGoal(newGoal) {
     goal.value = newGoal;
   }
   function setEaten(newEaten) {
     eaten.value = newEaten;
+  }
+  async function fetchFood(query) {
+    searchResults.value = await searchFood(query);
   }
 
   return {
@@ -29,5 +34,7 @@ export const useFoodStore = defineStore("food", () => {
     fatGoal,
     setGoal,
     setEaten,
+    searchResults,
+    fetchFood,
   };
 });
