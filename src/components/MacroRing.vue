@@ -9,7 +9,8 @@ const props = defineProps({
 const remainingCalories = computed(() => props.goal - props.eaten);
 
 const calcCalories = computed(function () {
-  return (props.eaten / props.goal) * 188;
+  if (props.goal === 0) return 0;
+  else return (props.eaten / props.goal) * 188;
 });
 </script>
 <template>
