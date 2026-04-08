@@ -20,7 +20,9 @@ export const useFoodStore = defineStore("food", () => {
     eaten.value = newEaten;
   }
   async function fetchFood(query) {
-    searchResults.value = await searchFood(query);
+    const result = await searchFood(query);
+    console.log(result);
+    searchResults.value = result.hints;
   }
 
   return {

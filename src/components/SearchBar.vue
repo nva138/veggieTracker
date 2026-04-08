@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import { useFoodStore } from "../stores/useFoodStore";
+import { ref } from "vue";
+const store = useFoodStore();
+const searchInput = ref("");
+</script>
 <template>
   <form class="max-w-md mx-auto">
     <label
@@ -28,6 +33,7 @@
         </svg>
       </div>
       <input
+        v-model="searchInput"
         type="search"
         id="search"
         class="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
@@ -35,6 +41,7 @@
         required
       />
       <button
+        @click="store.fetchFood(searchInput)"
         type="button"
         class="absolute end-1.5 bottom-1.5 text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
       >

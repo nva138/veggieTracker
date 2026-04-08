@@ -7,6 +7,8 @@ const store = useFoodStore();
 
 store.setGoal(2000);
 store.setEaten(1500);
+
+console.log(store.searchResults);
 </script>
 
 <template>
