@@ -10,5 +10,6 @@ export async function searchFood(query) {
     return data;
   } catch (error) {
     console.log(error);
+    console.log(import.meta.env.VITE_EDAMAM_APP_ID);
   }
 }
