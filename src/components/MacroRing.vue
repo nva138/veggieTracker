@@ -49,7 +49,7 @@ const calcCalories = computed(function () {
     </svg>
     <div class="flex flex-col px-2 pb-2">
       <MacroBars
-        :protein="30"
+        :protein="220"
         :protein-goal="200"
         :carb="200"
         :carb-goal="500"

@@ -39,38 +39,49 @@ const fatRemaining = computed(function () {
 </script>
 
 <template>
-  <div>
-    <div class="bg-gray-200 rounded w-20">
-      <div
-        class="bg-red-400 h-2 rounded"
-        :style="{ width: calcProtein + '%' }"
-      ></div>
+  <div class="flex flex-col gap-3 w-full px-4">
+    <div>
+      <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
+        <span>Protein</span>
+        <span
+          :class="{ 'text-green-500': String(proteinRemaining).includes('+') }"
+          >{{ proteinRemaining }}g</span
+        >
+      </div>
+      <div class="bg-gray-100 rounded-full h-2 w-full">
+        <div
+          class="bg-red-400 h-2 rounded-full transition-all duration-300"
+          :style="{ width: calcProtein + '%' }"
+        ></div>
+      </div>
     </div>
-    <span
-      class="text - xs"
-      :class="{
-        'text-green-500': String(proteinRemaining).includes('+'),
-      }"
-      >Protein {{ proteinRemaining }}</span
-    >
-  </div>
-  <div>
-    <div class="bg-gray-200 rounded w-20">
-      <div
-        class="bg-red-400 h-2 rounded"
-        :style="{ width: calcCarbs + '%' }"
-      ></div>
+    <div>
+      <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
+        <span>Carbs</span>
+        <span :class="{ 'text-green-500': String(carbRemaining).includes('+') }"
+          >{{ carbRemaining }}g</span
+        >
+      </div>
+      <div class="bg-gray-100 rounded-full h-2 w-full">
+        <div
+          class="bg-amber-400 h-2 rounded-full transition-all duration-300"
+          :style="{ width: calcCarbs + '%' }"
+        ></div>
+      </div>
     </div>
-    <span class="text-xs">Carbs {{ carbRemaining }}</span>
-  </div>
-  <div>
-    <div class="bg-gray-200 rounded w-20">
-      <div
-        class="bg-red-400 h-2 rounded"
-        :style="{ width: calcFat + '%' }"
-      ></div>
+    <div>
+      <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
+        <span>Fat</span>
+        <span :class="{ 'text-green-500': String(fatRemaining).includes('+') }"
+          >{{ fatRemaining }}g</span
+        >
+      </div>
+      <div class="bg-gray-100 rounded-full h-2 w-full">
+        <div
+          class="bg-violet-400 h-2 rounded-full transition-all duration-300"
+          :style="{ width: calcFat + '%' }"
+        ></div>
+      </div>
     </div>
-    <span class="text-xs">Fat {{ fatRemaining }}</span>
   </div>
 </template>
-<style scoped></style>

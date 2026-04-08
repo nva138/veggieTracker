@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar.vue";
 
 const store = useFoodStore();
 
-store.setGoal(2000);
+store.setGoal(3000);
 store.setEaten(1500);
 
 console.log(store.searchResults);
