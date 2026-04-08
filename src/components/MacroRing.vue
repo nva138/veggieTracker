@@ -14,8 +14,8 @@ const calcCalories = computed(function () {
 });
 </script>
 <template>
-  <div class="max-w-sm rounded overflow-hidden shadow-lg">
-    <svg viewBox="0 0 100 100" width="7rem" height="7rem">
+  <div class="w-[92%] mx-auto mt-4 rounded-2xl shadow-lg bg-white/10 p-3">
+    <svg viewBox="0 0 100 100" width="10rem" height="10rem">
       <circle
         cx="50"
         cy="50"
@@ -49,7 +49,7 @@ const calcCalories = computed(function () {
     </svg>
     <div class="flex flex-col px-2 pb-2">
       <MacroBars
-        :protein="220"
+        :protein="201"
         :protein-goal="200"
         :carb="200"
         :carb-goal="500"

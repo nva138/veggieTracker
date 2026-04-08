@@ -12,11 +12,13 @@ console.log(store.searchResults);
 </script>
 
 <template>
-  <div class="flex justify-center">
-    <MacroRing :eaten="store.eaten" :goal="store.goal" />
-  </div>
-  <div>
-    <SearchBar />
+  <div class="flex flex-col min-h-screen">
+    <div class="flex justify-center">
+      <MacroRing :eaten="store.eaten" :goal="store.goal" />
+    </div>
+    <div class="fixed bottom-16 left-0 right-0 px-4">
+      <SearchBar />
+    </div>
   </div>
 </template>
 

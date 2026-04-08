@@ -1,8 +1,17 @@
 <script setup>
 import { useFoodStore } from "../stores/useFoodStore";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+
 const store = useFoodStore();
 const searchInput = ref("");
+
+function handleSearch() {
+  store.fetchFood(searchInput);
+  router.push("/add-meal");
+  console.log(store.searchResults);
+}
 </script>
 <template>
   <form class="max-w-md mx-auto">
@@ -33,17 +42,18 @@ const searchInput = ref("");
         </svg>
       </div>
       <input
+        @keyup.enter="handleSearch"
         v-model="searchInput"
         type="search"
         id="search"
-        class="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+        class="block w-full p-3 ps-9 bg-white border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-green-500 focus:border-green-500 placeholder:text-gray-400"
         placeholder="Search"
         required
       />
       <button
-        @click="store.fetchFood(searchInput)"
+        @click="handleSearch"
         type="button"
-        class="absolute end-1.5 bottom-1.5 text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded text-xs px-3 py-1.5 focus:outline-none"
+        class="absolute end-1.5 bottom-1.5 text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-xs px-3 py-1.5 focus:outline-none"
       >
         Search
       </button>
