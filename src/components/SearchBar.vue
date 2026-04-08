@@ -8,7 +8,7 @@ const store = useFoodStore();
 const searchInput = ref("");
 
 function handleSearch() {
-  store.fetchFood(searchInput);
+  store.fetchFood(searchInput.value);
   router.push("/add-meal");
   console.log(store.searchResults);
 }
