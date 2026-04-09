@@ -1,5 +1,9 @@
 <script setup>
 import { ref } from "vue";
+import { useFoodStore } from "../stores/useFoodStore";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const store = useFoodStore();
 const props = defineProps(["food"]);
 const emits = defineEmits(["resetRefValue"]);
 const amountInput = ref(null);
@@ -11,6 +15,19 @@ const calcProteins = () =>
   (props.food.nutrients.PROCNT / 100) * amountInput.value;
 const calcFats = () => (props.food.nutrients.FAT / 100) * amountInput.value;
 const calcCarbs = () => (props.food.nutrients.CHOCDF / 100) * amountInput.value;
+
+function pushSelectedFood() {
+  store.savedMeals.push({
+    meal: props.food.label,
+    calories: calcCalories(),
+    proteins: calcProteins(),
+    carbs: calcCarbs(),
+    fats: calcFats(),
+  });
+  router.push("/dashboard");
+
+  console.log(store.savedMeals);
+}
 </script>
 <template>
   <div
@@ -42,20 +59,54 @@ const calcCarbs = () => (props.food.nutrients.CHOCDF / 100) * amountInput.value;
 
       <div class="flex-1 mt-4">
         <div v-if="amountInput < 1">
-          <p>{{ props.food.label }} per 100 gramm</p>
-          <p>{{ props.food.nutrients.ENERC_KCAL }}</p>
-          <p>{{ props.food.nutrients.PROCNT }}</p>
-          <p>{{ props.food.nutrients.CHOCDF }}</p>
-          <p>{{ props.food.nutrients.FAT }}</p>
+          <p class="text-lg font-semibold text-gray-800 mb-1">{{ props.food.label }}</p>
+          <p class="text-xs text-gray-400 mb-4">per 100g</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-gray-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Kalorien</p>
+              <p class="text-sm font-semibold text-gray-700">{{ Math.round(props.food.nutrients.ENERC_KCAL) }} kcal</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Protein</p>
+              <p class="text-sm font-semibold text-gray-700">{{ Math.round(props.food.nutrients.PROCNT) }}g</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Carbs</p>
+              <p class="text-sm font-semibold text-gray-700">{{ Math.round(props.food.nutrients.CHOCDF) }}g</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Fett</p>
+              <p class="text-sm font-semibold text-gray-700">{{ Math.round(props.food.nutrients.FAT) }}g</p>
+            </div>
+          </div>
         </div>
-        <p v-else-if="amountInput > 3000">u cant eat that much 🤢</p>
+
+        <div v-else-if="amountInput > 3000" class="flex flex-col items-center justify-center h-full text-center">
+          <p class="text-4xl mb-2">🤢</p>
+          <p class="text-gray-500 text-sm">Das ist ein bisschen viel...</p>
+        </div>
 
         <div v-else>
-          <p>{{ props.food.label }} per {{ amountInput }} gramm</p>
-          <p>{{ calcCalories() }} -CALORIES</p>
-          <p>{{ calcProteins() }} - PROTEINS</p>
-          <p>{{ calcCarbs() }} - CARBS</p>
-          <p>{{ calcFats() }} - FAT</p>
+          <p class="text-lg font-semibold text-gray-800 mb-1">{{ props.food.label }}</p>
+          <p class="text-xs text-gray-400 mb-4">per {{ amountInput }}g</p>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="bg-green-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Kalorien</p>
+              <p class="text-sm font-semibold text-green-600">{{ Math.round(calcCalories()) }} kcal</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Protein</p>
+              <p class="text-sm font-semibold text-green-600">{{ Math.round(calcProteins()) }}g</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Carbs</p>
+              <p class="text-sm font-semibold text-green-600">{{ Math.round(calcCarbs()) }}g</p>
+            </div>
+            <div class="bg-green-50 rounded-xl p-3">
+              <p class="text-xs text-gray-400">Fett</p>
+              <p class="text-sm font-semibold text-green-600">{{ Math.round(calcFats()) }}g</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -71,6 +122,7 @@ const calcCarbs = () => (props.food.nutrients.CHOCDF / 100) * amountInput.value;
 
       <div class="flex justify-end">
         <button
+          @click="pushSelectedFood()"
           class="bg-green-500 hover:bg-green-600 text-white font-medium text-sm px-5 py-2.5 rounded-xl"
         >
           Log Meal

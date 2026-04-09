@@ -39,5 +39,6 @@ export const useFoodStore = defineStore("food", () => {
     setEaten,
     searchResults,
     fetchFood,
+    savedMeals,
   };
 });
