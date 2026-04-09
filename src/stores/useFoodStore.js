@@ -12,6 +12,7 @@ export const useFoodStore = defineStore("food", () => {
   const carbGoal = ref(0);
   const fatGoal = ref(0);
   const searchResults = ref([]);
+  const savedMeals = ref([]);
 
   function setGoal(newGoal) {
     goal.value = newGoal;
