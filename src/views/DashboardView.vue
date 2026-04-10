@@ -2,6 +2,8 @@
 import { useFoodStore } from "../stores/useFoodStore";
 import MacroRing from "../components/MacroRing.vue";
 import SearchBar from "../components/SearchBar.vue";
+import MainNav from "../components/MainNav.vue";
+import LastLoggedMeals from "../components/LastLoggedMeals.vue";
 
 const store = useFoodStore();
 
@@ -16,8 +18,14 @@ console.log(store.searchResults);
     <div class="flex justify-center">
       <MacroRing :eaten="store.eaten" :goal="store.goal" />
     </div>
-    <div class="fixed bottom-16 left-0 right-0 px-4">
+    <div>
+      <LastLoggedMeals />
+    </div>
+    <div class="fixed bottom-28 left-0 right-0 px-4">
       <SearchBar />
+    </div>
+    <div>
+      <MainNav />
     </div>
   </div>
 </template>
