@@ -1,13 +1,29 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { searchFood } from "../services/edamamService";
 
 export const useFoodStore = defineStore("food", () => {
-  const eaten = ref(0);
+  const eaten = computed(() =>
+    savedMeals.value.reduce(function (sum, meal) {
+      return sum + meal.calories;
+    }, 0),
+  );
   const goal = ref(0);
-  const protein = ref(0);
-  const carb = ref(0);
-  const fat = ref(0);
+  const protein = computed(() =>
+    savedMeals.value.reduce(function (sum, meal) {
+      return sum + meal.proteins;
+    }, 0),
+  );
+  const carb = computed(() =>
+    savedMeals.value.reduce(function (sum, meal) {
+      return sum + meal.carbs;
+    }, 0),
+  );
+  const fat = computed(() =>
+    savedMeals.value.reduce(function (sum, meal) {
+      return sum + meal.fats;
+    }, 0),
+  );
   const proteinGoal = ref(0);
   const carbGoal = ref(0);
   const fatGoal = ref(0);

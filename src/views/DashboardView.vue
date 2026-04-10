@@ -7,8 +7,7 @@ import LastLoggedMeals from "../components/LastLoggedMeals.vue";
 
 const store = useFoodStore();
 
-store.setGoal(3000);
-store.setEaten(1500);
+store.setGoal(2500);
 
 console.log(store.searchResults);
 </script>
