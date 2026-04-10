@@ -33,9 +33,7 @@ export const useFoodStore = defineStore("food", () => {
   function setGoal(newGoal) {
     goal.value = newGoal;
   }
-  function setEaten(newEaten) {
-    eaten.value = newEaten;
-  }
+
   async function fetchFood(query) {
     const result = await searchFood(query);
     console.log(result);
@@ -52,7 +50,6 @@ export const useFoodStore = defineStore("food", () => {
     carbGoal,
     fatGoal,
     setGoal,
-    setEaten,
     searchResults,
     fetchFood,
     savedMeals,
