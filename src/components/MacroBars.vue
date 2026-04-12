@@ -37,6 +37,10 @@ const fatRemaining = computed(function () {
   } else return fatProgress;
 });
 
+const proteinBar = () => (calcProtein.value > 100 ? 100 : calcProtein.value);
+const carbBar = () => (calcCarbs.value > 100 ? 100 : calcCarbs.value);
+const fatBar = () => (calcFat.value > 100 ? 100 : calcFat.value);
+
 console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
 </script>
 
@@ -53,7 +57,7 @@ console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
       <div class="bg-gray-100 rounded-full h-2 w-full">
         <div
           class="bg-red-400 h-2 rounded-full transition-all duration-300"
-          :style="{ width: calcProtein + '%' }"
+          :style="{ width: proteinBar() + '%' }"
         ></div>
       </div>
     </div>
@@ -67,7 +71,7 @@ console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
       <div class="bg-gray-100 rounded-full h-2 w-full">
         <div
           class="bg-amber-400 h-2 rounded-full transition-all duration-300"
-          :style="{ width: calcCarbs + '%' }"
+          :style="{ width: carbBar() + '%' }"
         ></div>
       </div>
     </div>
@@ -81,7 +85,7 @@ console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
       <div class="bg-gray-100 rounded-full h-2 w-full">
         <div
           class="bg-violet-400 h-2 rounded-full transition-all duration-300"
-          :style="{ width: calcFat + '%' }"
+          :style="{ width: fatBar() + '%' }"
         ></div>
       </div>
     </div>
