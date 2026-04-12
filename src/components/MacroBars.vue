@@ -64,7 +64,7 @@ console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
     <div>
       <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
         <span>Carbs</span>
-        <span :class="{ 'text-green-500': String(carbRemaining).includes('+') }"
+        <span :class="{ 'text-red-500': String(carbRemaining).includes('+') }"
           >{{ carbRemaining }}g</span
         >
       </div>
@@ -78,7 +78,7 @@ console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
     <div>
       <div class="flex justify-between text-xs font-medium text-gray-500 mb-1">
         <span>Fat</span>
-        <span :class="{ 'text-green-500': String(fatRemaining).includes('+') }"
+        <span :class="{ 'text-red-500': String(fatRemaining).includes('+') }"
           >{{ fatRemaining }}g</span
         >
       </div>
