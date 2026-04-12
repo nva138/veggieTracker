@@ -34,6 +34,12 @@ export const useFoodStore = defineStore("food", () => {
     goal.value = newGoal;
   }
 
+  function setMacros(proteinPercent, carbPercent, fatPercent) {
+    proteinGoal.value = (goal.value * proteinPercent) / 100 / 4;
+    carbGoal.value = (goal.value * carbPercent) / 100 / 4;
+    fatGoal.value = (goal.value * fatPercent) / 100 / 9;
+  }
+
   async function fetchFood(query) {
     const result = await searchFood(query);
     console.log(result);
@@ -53,5 +59,6 @@ export const useFoodStore = defineStore("food", () => {
     searchResults,
     fetchFood,
     savedMeals,
+    setMacros,
   };
 });

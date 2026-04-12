@@ -36,6 +36,8 @@ const fatRemaining = computed(function () {
     return `+${Math.abs(fatProgress)}`;
   } else return fatProgress;
 });
+
+console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
 </script>
 
 <template>

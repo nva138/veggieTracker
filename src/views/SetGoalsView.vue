@@ -1,4 +1,43 @@
-<script setup></script>
+<script setup>
+import { useFoodStore } from "../stores/useFoodStore";
+import MainNav from "../components/MainNav.vue";
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const store = useFoodStore();
+
+const calories = ref(2000);
+const protein = ref(30);
+const carbs = ref(40);
+const fat = ref(30);
+
+function adjustMacros(changed) {
+  if (changed === "protein") {
+    const rest = 100 - protein.value;
+    carbs.value = rest / 2;
+    fat.value = rest / 2;
+  }
+
+  if (changed === "carbs") {
+    const rest = 100 - carbs.value;
+    protein.value = rest / 2;
+    fat.value = rest / 2;
+  }
+
+  if (changed === "fat") {
+    const rest = 100 - fat.value;
+    protein.value = rest / 2;
+    carbs.value = rest / 2;
+  }
+}
+
+function saveGoals() {
+  store.setGoal(calories.value);
+  store.setMacros(protein.value, carbs.value, fat.value);
+  router.push("/dashboard");
+  console.log(store.goal, protein.value, carbs.value, fat.value);
+}
+</script>
 
 <template>
   <div class="flex flex-col min-h-screen px-4 pt-6 pb-32">
@@ -8,6 +47,7 @@
       <label class="text-sm text-gray-400 mb-1 block">Kalorien pro Tag</label>
       <div class="flex items-center gap-2">
         <input
+          v-model="calories"
           type="number"
           placeholder="2000"
           class="w-full bg-transparent text-2xl font-semibold outline-none"
@@ -23,9 +63,11 @@
         <div>
           <div class="flex justify-between text-sm mb-1">
             <span>Protein</span>
-            <span class="text-green-400">30%</span>
+            <span class="text-green-400">{{ Math.floor(protein) }}%</span>
           </div>
           <input
+            @input="adjustMacros('protein')"
+            v-model="protein"
             type="range"
             min="0"
             max="100"
@@ -37,9 +79,11 @@
         <div>
           <div class="flex justify-between text-sm mb-1">
             <span>Kohlenhydrate</span>
-            <span class="text-yellow-400">40%</span>
+            <span class="text-yellow-400">{{ Math.floor(carbs) }}%</span>
           </div>
           <input
+            @input="adjustMacros('carbs')"
+            v-model="carbs"
             type="range"
             min="0"
             max="100"
@@ -51,9 +95,11 @@
         <div>
           <div class="flex justify-between text-sm mb-1">
             <span>Fett</span>
-            <span class="text-red-400">30%</span>
+            <span class="text-red-400">{{ Math.floor(fat) }}%</span>
           </div>
           <input
+            @input="adjustMacros('fat')"
+            v-model="fat"
             type="range"
             min="0"
             max="100"
@@ -69,11 +115,12 @@
     </div>
 
     <button
+      @click="saveGoals()"
       class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-2xl"
     >
       Ziel speichern
     </button>
-  </div>
 
-  <MainNav />
+    <MainNav />
+  </div>
 </template>

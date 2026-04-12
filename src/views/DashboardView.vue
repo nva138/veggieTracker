@@ -6,10 +6,6 @@ import MainNav from "../components/MainNav.vue";
 import LastLoggedMeals from "../components/LastLoggedMeals.vue";
 
 const store = useFoodStore();
-
-store.setGoal(2500);
-
-console.log(store.searchResults);
 </script>
 
 <template>

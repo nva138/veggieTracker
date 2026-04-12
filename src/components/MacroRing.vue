@@ -51,12 +51,13 @@ const calcCalories = computed(function () {
     </svg>
     <div class="flex flex-col px-2 pb-2">
       <MacroBars
+        v-if="store.proteinGoal > 0 && store.carbGoal > 0 && store.fatGoal > 0"
         :protein="store.protein"
-        :protein-goal="200"
+        :protein-goal="Math.floor(store.proteinGoal)"
         :carb="store.carb"
-        :carb-goal="500"
+        :carb-goal="Math.floor(store.carbGoal)"
         :fat="store.fat"
-        :fat-goal="100"
+        :fat-goal="Math.floor(store.fatGoal)"
       />
     </div>
   </div>

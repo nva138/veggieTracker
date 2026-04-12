@@ -25,6 +25,7 @@ function pushSelectedFood() {
     proteins: calcProteins(),
     carbs: calcCarbs(),
     fats: calcFats(),
+    date: new Date().toLocaleDateString(),
   });
   router.push("/dashboard");
 
