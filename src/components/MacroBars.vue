@@ -40,8 +40,6 @@ const fatRemaining = computed(function () {
 const proteinBar = () => (calcProtein.value > 100 ? 100 : calcProtein.value);
 const carbBar = () => (calcCarbs.value > 100 ? 100 : calcCarbs.value);
 const fatBar = () => (calcFat.value > 100 ? 100 : calcFat.value);
-
-console.log(props.proteinGoal, props.carbGoal, props.fatGoal);
 </script>
 
 <template>

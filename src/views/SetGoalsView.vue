@@ -14,20 +14,44 @@ const fat = ref(30);
 function adjustMacros(changed) {
   if (changed === "protein") {
     const rest = 100 - protein.value;
-    carbs.value = rest / 2;
-    fat.value = rest / 2;
+    const totalOthers = carbs.value + fat.value;
+    if (totalOthers > 0) {
+      const carbRatio = carbs.value / totalOthers;
+      const fatRatio = fat.value / totalOthers;
+      carbs.value = rest * carbRatio;
+      fat.value = rest * fatRatio;
+    } else {
+      carbs.value = rest / 2;
+      fat.value = rest / 2;
+    }
   }
 
   if (changed === "carbs") {
     const rest = 100 - carbs.value;
-    protein.value = rest / 2;
-    fat.value = rest / 2;
+    const totalOthers = protein.value + fat.value;
+    if (totalOthers > 0) {
+      const proteinRatio = protein.value / totalOthers;
+      const fatRatio = fat.value / totalOthers;
+      protein.value = rest * proteinRatio;
+      fat.value = rest * fatRatio;
+    } else {
+      protein.value = rest / 2;
+      fat.value = rest / 2;
+    }
   }
 
   if (changed === "fat") {
     const rest = 100 - fat.value;
-    protein.value = rest / 2;
-    carbs.value = rest / 2;
+    const totalOthers = protein.value + carbs.value;
+    if (totalOthers > 0) {
+      const proteinRatio = protein.value / totalOthers;
+      const carbRatio = carbs.value / totalOthers;
+      protein.value = rest * proteinRatio;
+      carbs.value = rest * carbRatio;
+    } else {
+      protein.value = rest / 2;
+      carbs.value = rest / 2;
+    }
   }
 }
 
