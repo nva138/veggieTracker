@@ -202,7 +202,8 @@ function pushSelectedFood() {
 
       <div class="flex justify-end">
         <button
-          @click="pushSelectedFood()"
+          @click.stop="pushSelectedFood()"
+          :disabled="mealTyp === ''"
           class="bg-green-500 hover:bg-green-600 text-white font-medium text-sm px-5 py-2.5 rounded-xl"
         >
           Log Meal
