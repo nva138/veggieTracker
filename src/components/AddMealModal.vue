@@ -7,6 +7,7 @@ const store = useFoodStore();
 const props = defineProps(["food"]);
 const emits = defineEmits(["resetRefValue"]);
 const amountInput = ref(null);
+const mealTyp = ref("");
 
 const calcCalories = () =>
   Math.floor((props.food.nutrients.ENERC_KCAL / 100) * amountInput.value);
@@ -25,6 +26,7 @@ function pushSelectedFood() {
     proteins: calcProteins(),
     carbs: calcCarbs(),
     fats: calcFats(),
+    mealTyp: mealTyp.value,
     date: new Date().toLocaleDateString(),
   });
   router.push("/dashboard");
@@ -136,7 +138,7 @@ function pushSelectedFood() {
         </div>
       </div>
 
-      <div class="flex flex-col gap-1 mb-4">
+      <div class="flex flex-col gap-1 mb-3">
         <label class="text-sm font-medium text-gray-600">Gramm</label>
         <input
           v-model="amountInput"
@@ -144,6 +146,58 @@ function pushSelectedFood() {
           type="number"
           class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
+      </div>
+
+      <div class="mb-4">
+        <label class="text-sm font-medium text-gray-600 block mb-2"
+          >Mahlzeit</label
+        >
+        <div class="grid grid-cols-4 gap-2">
+          <button
+            @click="mealTyp = 'breakfast'"
+            :class="[
+              'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
+              mealTyp === 'breakfast'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+            ]"
+          >
+            🥐 Frühstück
+          </button>
+          <button
+            @click="mealTyp = 'lunch'"
+            :class="[
+              'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
+              mealTyp === 'lunch'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+            ]"
+          >
+            🥗 Mittag
+          </button>
+          <button
+            @click="mealTyp = 'dinner'"
+            :class="[
+              'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
+              mealTyp === 'dinner'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+            ]"
+          >
+            🍽️ Abend
+          </button>
+          <button
+            @click="mealTyp = 'snack'"
+            :class="[
+              'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
+              mealTyp === 'snack'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
+            ]"
+          >
+            🍿 Snack
+          </button>
+        </div>
       </div>
 
       <div class="flex justify-end">
