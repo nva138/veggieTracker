@@ -33,6 +33,7 @@ export const useFoodStore = defineStore("food", () => {
   function setGoal(newGoal) {
     goal.value = newGoal;
   }
+  console.log(goal.value);
 
   function setMacros(proteinPercent, carbPercent, fatPercent) {
     proteinGoal.value = (goal.value * proteinPercent) / 100 / 4;
