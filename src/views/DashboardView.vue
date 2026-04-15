@@ -1,9 +1,9 @@
 <script setup>
 import { useFoodStore } from "../stores/useFoodStore";
-import MacroRing from "../components/MacroRing.vue";
-import SearchBar from "../components/SearchBar.vue";
-import MainNav from "../components/MainNav.vue";
-import LastLoggedMeals from "../components/LastLoggedMeals.vue";
+import MacroRing from "../components/dashboard/MacroRing.vue";
+import SearchBar from "../components/dashboard/SearchBar.vue";
+import MainNav from "../components/global/MainNav.vue";
+import LastLoggedMeals from "../components/dashboard/LastLoggedMeals.vue";
 
 const store = useFoodStore();
 </script>

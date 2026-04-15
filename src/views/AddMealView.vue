@@ -1,7 +1,7 @@
 <script setup>
 import { useFoodStore } from "../stores/useFoodStore";
-import SearchBar from "../components/SearchBar.vue";
-import AddMealModal from "../components/AddMealModal.vue";
+import SearchBar from "../components/dashboard/SearchBar.vue";
+import AddMealModal from "../components/addMeal/AddMealModal.vue";
 import { ref } from "vue";
 
 const store = useFoodStore();

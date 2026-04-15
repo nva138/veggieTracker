@@ -1,5 +1,5 @@
 <script setup>
-import { useFoodStore } from "../stores/useFoodStore";
+import { useFoodStore } from "../../stores/useFoodStore";
 const store = useFoodStore();
 </script>
 <template>
@@ -7,9 +7,9 @@ const store = useFoodStore();
     <p
       class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2 px-1"
     >
-      Heute geloggt
+      Today's meals
     </p>
-    <label>Frühstück</label>
+    <label>Breakfast</label>
     <div>
       <ul class="flex flex-col divide-y divide-white/10">
         <template v-for="foodItem in store.savedMeals">
@@ -39,7 +39,7 @@ const store = useFoodStore();
       </ul>
     </div>
 
-    <label>Mittag</label>
+    <label>Lunch</label>
     <div>
       <ul class="flex flex-col divide-y divide-white/10">
         <template v-for="foodItem in store.savedMeals">
@@ -68,7 +68,7 @@ const store = useFoodStore();
         </template>
       </ul>
     </div>
-    <label>Abend</label>
+    <label>Dinner</label>
     <div>
       <ul class="flex flex-col divide-y divide-white/10">
         <template v-for="foodItem in store.savedMeals">

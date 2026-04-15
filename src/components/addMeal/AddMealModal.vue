@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useFoodStore } from "../stores/useFoodStore";
+import { useFoodStore } from "../../stores/useFoodStore";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const store = useFoodStore();
@@ -30,8 +30,6 @@ function pushSelectedFood() {
     date: new Date().toLocaleDateString(),
   });
   router.push("/dashboard");
-
-  console.log(store.savedMeals);
 }
 </script>
 <template>
@@ -101,7 +99,7 @@ function pushSelectedFood() {
           class="flex flex-col items-center justify-center h-full text-center"
         >
           <p class="text-4xl mb-2">🤢</p>
-          <p class="text-gray-500 text-sm">Das ist ein bisschen viel...</p>
+          <p class="text-gray-500 text-sm">That's a bit much...</p>
         </div>
 
         <div v-else>
@@ -139,10 +137,10 @@ function pushSelectedFood() {
       </div>
 
       <div class="flex flex-col gap-1 mb-3">
-        <label class="text-sm font-medium text-gray-600">Gramm</label>
+        <label class="text-sm font-medium text-gray-600">Grams</label>
         <input
           v-model="amountInput"
-          placeholder="e.g. 150 gramm"
+          placeholder="e.g. 150g"
           type="number"
           class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
@@ -150,7 +148,7 @@ function pushSelectedFood() {
 
       <div class="mb-4">
         <label class="text-sm font-medium text-gray-600 block mb-2"
-          >Mahlzeit</label
+          >Meal type</label
         >
         <div class="grid grid-cols-4 gap-2">
           <button
@@ -162,7 +160,7 @@ function pushSelectedFood() {
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
           >
-            🥐 Frühstück
+            🥐 Breakfast
           </button>
           <button
             @click="mealTyp = 'lunch'"
@@ -173,7 +171,7 @@ function pushSelectedFood() {
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
           >
-            🥗 Mittag
+            🥗 Lunch
           </button>
           <button
             @click="mealTyp = 'dinner'"
@@ -184,7 +182,7 @@ function pushSelectedFood() {
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
           >
-            🍽️ Abend
+            🍽️ Dinner
           </button>
           <button
             @click="mealTyp = 'snack'"

@@ -1,7 +1,7 @@
 <script setup>
 import MacroBars from "./MacroBars.vue";
 import { computed } from "vue";
-import { useFoodStore } from "../stores/useFoodStore";
+import { useFoodStore } from "../../stores/useFoodStore";
 const store = useFoodStore();
 const props = defineProps({
   eaten: Number,

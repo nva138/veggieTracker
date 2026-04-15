@@ -1,6 +1,6 @@
 <script setup>
 import { useFoodStore } from "../stores/useFoodStore";
-import MainNav from "../components/MainNav.vue";
+import MainNav from "../components/global/MainNav.vue";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -65,10 +65,10 @@ function saveGoals() {
 
 <template>
   <div class="flex flex-col min-h-screen px-4 pt-6 pb-32">
-    <h1 class="text-xl font-bold mb-6">Wochenziel setzen</h1>
+    <h1 class="text-xl font-bold mb-6">Set weekly goal</h1>
 
     <div class="bg-white/10 rounded-2xl p-4 mb-4">
-      <label class="text-sm text-gray-400 mb-1 block">Kalorien pro Tag</label>
+      <label class="text-sm text-gray-400 mb-1 block">Calories per day</label>
       <div class="flex items-center gap-2">
         <input
           v-model="calories"
@@ -81,7 +81,7 @@ function saveGoals() {
     </div>
 
     <div class="bg-white/10 rounded-2xl p-4 mb-6">
-      <p class="text-sm text-gray-400 mb-4">Makroverteilung</p>
+      <p class="text-sm text-gray-400 mb-4">Macro distribution</p>
 
       <div class="flex flex-col gap-4">
         <div>
@@ -102,7 +102,7 @@ function saveGoals() {
 
         <div>
           <div class="flex justify-between text-sm mb-1">
-            <span>Kohlenhydrate</span>
+            <span>Carbs</span>
             <span class="text-yellow-400">{{ Math.floor(carbs) }}%</span>
           </div>
           <input
@@ -118,7 +118,7 @@ function saveGoals() {
 
         <div>
           <div class="flex justify-between text-sm mb-1">
-            <span>Fett</span>
+            <span>Fat</span>
             <span class="text-red-400">{{ Math.floor(fat) }}%</span>
           </div>
           <input
@@ -134,7 +134,7 @@ function saveGoals() {
       </div>
 
       <div class="mt-4 text-center text-sm text-gray-400">
-        Gesamt: <span class="text-white font-medium">100%</span>
+        Total: <span class="text-white font-medium">100%</span>
       </div>
     </div>
 
@@ -142,7 +142,7 @@ function saveGoals() {
       @click="saveGoals()"
       class="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-3 rounded-2xl"
     >
-      Ziel speichern
+      Save goal
     </button>
 
     <MainNav />

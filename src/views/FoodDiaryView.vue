@@ -1,5 +1,5 @@
 <script setup>
-import MainNav from "../components/MainNav.vue";
+import MainNav from "../components/global/MainNav.vue";
 import { useFoodStore } from "../stores/useFoodStore";
 import { computed, ref } from "vue";
 const store = useFoodStore();

@@ -1,5 +1,5 @@
 <script setup>
-import { useFoodStore } from "../stores/useFoodStore";
+import { useFoodStore } from "../../stores/useFoodStore";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -11,7 +11,6 @@ function handleSearch() {
   if (store.goal === 0) return;
   store.fetchFood(searchInput.value);
   router.push("/add-meal");
-  console.log(store.searchResults);
 }
 </script>
 <template>
