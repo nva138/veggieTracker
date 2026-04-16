@@ -30,7 +30,7 @@ function saveGoals() {
 
 <template>
   <div class="flex flex-col min-h-screen px-4 pt-6 pb-32">
-    <h1 class="text-xl font-bold mb-6">Set weekly goal</h1>
+    <h1 class="text-xl font-bold mb-6">Set daily goal</h1>
 
     <div class="bg-white/10 rounded-2xl p-4 mb-4">
       <label class="text-sm text-gray-400 mb-1 block">Calories per day</label>
