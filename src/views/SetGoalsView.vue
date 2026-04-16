@@ -1,7 +1,7 @@
 <script setup>
 import { useFoodStore } from "../stores/useFoodStore";
 import MainNav from "../components/global/MainNav.vue";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const store = useFoodStore();
@@ -9,49 +9,14 @@ const store = useFoodStore();
 const calories = ref(2000);
 const protein = ref(30);
 const carbs = ref(40);
-const fat = ref(30);
+const fat = computed(() => 100 - protein.value - carbs.value);
 
-function adjustMacros(changed) {
+function adjustProteinAndCarbs(changed) {
   if (changed === "protein") {
-    const rest = 100 - protein.value;
-    const totalOthers = carbs.value + fat.value;
-    if (totalOthers > 0) {
-      const carbRatio = carbs.value / totalOthers;
-      const fatRatio = fat.value / totalOthers;
-      carbs.value = rest * carbRatio;
-      fat.value = rest * fatRatio;
-    } else {
-      carbs.value = rest / 2;
-      fat.value = rest / 2;
-    }
+    if (protein.value + carbs.value > 100) carbs.value = 100 - protein.value;
   }
-
   if (changed === "carbs") {
-    const rest = 100 - carbs.value;
-    const totalOthers = protein.value + fat.value;
-    if (totalOthers > 0) {
-      const proteinRatio = protein.value / totalOthers;
-      const fatRatio = fat.value / totalOthers;
-      protein.value = rest * proteinRatio;
-      fat.value = rest * fatRatio;
-    } else {
-      protein.value = rest / 2;
-      fat.value = rest / 2;
-    }
-  }
-
-  if (changed === "fat") {
-    const rest = 100 - fat.value;
-    const totalOthers = protein.value + carbs.value;
-    if (totalOthers > 0) {
-      const proteinRatio = protein.value / totalOthers;
-      const carbRatio = carbs.value / totalOthers;
-      protein.value = rest * proteinRatio;
-      carbs.value = rest * carbRatio;
-    } else {
-      protein.value = rest / 2;
-      carbs.value = rest / 2;
-    }
+    if (carbs.value + protein.value > 100) protein.value = 100 - carbs.value;
   }
 }
 
@@ -90,12 +55,11 @@ function saveGoals() {
             <span class="text-green-400">{{ Math.floor(protein) }}%</span>
           </div>
           <input
-            @input="adjustMacros('protein')"
-            v-model="protein"
+            @input="adjustProteinAndCarbs('protein')"
+            v-model.number="protein"
             type="range"
             min="0"
             max="100"
-            value="30"
             class="w-full accent-green-500"
           />
         </div>
@@ -106,12 +70,11 @@ function saveGoals() {
             <span class="text-yellow-400">{{ Math.floor(carbs) }}%</span>
           </div>
           <input
-            @input="adjustMacros('carbs')"
-            v-model="carbs"
+            @input="adjustProteinAndCarbs('carbs')"
+            v-model.number="carbs"
             type="range"
             min="0"
             max="100"
-            value="40"
             class="w-full accent-yellow-400"
           />
         </div>
@@ -121,20 +84,13 @@ function saveGoals() {
             <span>Fat</span>
             <span class="text-red-400">{{ Math.floor(fat) }}%</span>
           </div>
-          <input
-            @input="adjustMacros('fat')"
-            v-model="fat"
-            type="range"
-            min="0"
-            max="100"
-            value="30"
-            class="w-full accent-red-400"
-          />
+          <div class="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+            <div
+              class="h-full bg-red-400 rounded-full transition-all"
+              :style="{ width: fat + '%' }"
+            ></div>
+          </div>
         </div>
-      </div>
-
-      <div class="mt-4 text-center text-sm text-gray-400">
-        Total: <span class="text-white font-medium">100%</span>
       </div>
     </div>
 
