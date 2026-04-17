@@ -4,6 +4,7 @@ import MacroRing from "../components/dashboard/MacroRing.vue";
 import SearchBar from "../components/dashboard/SearchBar.vue";
 import MainNav from "../components/global/MainNav.vue";
 import LastLoggedMeals from "../components/dashboard/LastLoggedMeals.vue";
+import ReachedGoal from "../components/dashboard/ReachedGoal.vue";
 
 const store = useFoodStore();
 </script>
@@ -16,6 +17,7 @@ const store = useFoodStore();
     <div>
       <LastLoggedMeals />
     </div>
+    <div><ReachedGoal /></div>
     <div class="fixed bottom-28 left-0 right-0 px-4">
       <SearchBar />
     </div>
