@@ -10,6 +10,9 @@ const props = defineProps({
 
 const remainingCalories = computed(() => props.goal - props.eaten);
 
+const remainingOrToMuch = () =>
+  remainingCalories.value < 0 ? "Over" : "Remaining";
+
 const calcCalories = computed(function () {
   if (props.goal === 0) return 0;
   else return (props.eaten / props.goal) * 188;
@@ -36,7 +39,13 @@ const calcCalories = computed(function () {
         :stroke-dasharray="`${calcCalories} ${188 - calcCalories}`"
         stroke-dashoffset="-47"
       ></circle>
-      <text x="50" y="50" text-anchor="middle" dominant-baseline="middle">
+      <text
+        x="50"
+        y="50"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        :fill="remainingCalories < 0 ? 'red' : 'green'"
+      >
         {{ remainingCalories }}
       </text>
       <text
@@ -46,7 +55,7 @@ const calcCalories = computed(function () {
         text-anchor="middle"
         dominant-baseline="hanging"
       >
-        Remaining
+        {{ remainingOrToMuch() }}
       </text>
     </svg>
     <div class="flex flex-col px-2 pb-2">
