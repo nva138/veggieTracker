@@ -78,10 +78,10 @@ const dailyTotals = computed(() => {
           <div class="w-full">
             <div class="flex items-center gap-2 mb-1">
               <span class="text-lg">
-                <span v-if="meal.mealTyp === 'breakfast'">🥐</span>
-                <span v-else-if="meal.mealTyp === 'lunch'">🥗</span>
-                <span v-else-if="meal.mealTyp === 'dinner'">🍽️</span>
-                <span v-else-if="meal.mealTyp === 'snack'">🍿</span>
+                <span v-if="meal.mealType === 'breakfast'">🥐</span>
+                <span v-else-if="meal.mealType === 'lunch'">🥗</span>
+                <span v-else-if="meal.mealType === 'dinner'">🍽️</span>
+                <span v-else-if="meal.mealType === 'snack'">🍿</span>
               </span>
               <p class="text-sm font-semibold text-gray-800">
                 {{ meal.meal }}

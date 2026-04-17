@@ -7,7 +7,7 @@ const store = useFoodStore();
 const props = defineProps(["food"]);
 const emits = defineEmits(["resetRefValue"]);
 const amountInput = ref(null);
-const mealTyp = ref("");
+const mealType = ref("");
 
 const calcCalories = () =>
   Math.floor((props.food.nutrients.ENERC_KCAL / 100) * amountInput.value);
@@ -21,12 +21,13 @@ const calcCarbs = () =>
 
 function pushSelectedFood() {
   store.savedMeals.push({
+    id: crypto.randomUUID(),
     meal: props.food.label,
     calories: calcCalories(),
     proteins: calcProteins(),
     carbs: calcCarbs(),
     fats: calcFats(),
-    mealTyp: mealTyp.value,
+    mealType: mealType.value,
     date: new Date().toLocaleDateString(),
   });
   router.push("/dashboard");
@@ -152,10 +153,10 @@ function pushSelectedFood() {
         >
         <div class="grid grid-cols-4 gap-2">
           <button
-            @click="mealTyp = 'breakfast'"
+            @click="mealType = 'breakfast'"
             :class="[
               'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
-              mealTyp === 'breakfast'
+              mealType === 'breakfast'
                 ? 'bg-green-500 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
@@ -163,10 +164,10 @@ function pushSelectedFood() {
             🥐 Breakfast
           </button>
           <button
-            @click="mealTyp = 'lunch'"
+            @click="mealType = 'lunch'"
             :class="[
               'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
-              mealTyp === 'lunch'
+              mealType === 'lunch'
                 ? 'bg-green-500 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
@@ -174,10 +175,10 @@ function pushSelectedFood() {
             🥗 Lunch
           </button>
           <button
-            @click="mealTyp = 'dinner'"
+            @click="mealType = 'dinner'"
             :class="[
               'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
-              mealTyp === 'dinner'
+              mealType === 'dinner'
                 ? 'bg-green-500 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
@@ -185,10 +186,10 @@ function pushSelectedFood() {
             🍽️ Dinner
           </button>
           <button
-            @click="mealTyp = 'snack'"
+            @click="mealType = 'snack'"
             :class="[
               'rounded-xl px-2 py-2 text-xs font-medium transition-colors',
-              mealTyp === 'snack'
+              mealType === 'snack'
                 ? 'bg-green-500 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
             ]"
@@ -201,7 +202,7 @@ function pushSelectedFood() {
       <div class="flex justify-end">
         <button
           @click.stop="pushSelectedFood()"
-          :disabled="mealTyp === ''"
+          :disabled="mealType === ''"
           class="bg-green-500 hover:bg-green-600 text-white font-medium text-sm px-5 py-2.5 rounded-xl"
         >
           Log Meal
