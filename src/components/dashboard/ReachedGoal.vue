@@ -5,7 +5,6 @@ import barnClosed from "../../assets/barn_closed_locked.svg";
 import { useRouter } from "vue-router";
 import { computed } from "vue";
 const router = useRouter();
-
 const store = useFoodStore();
 
 const isGoalAchieved = computed(() => {
@@ -20,6 +19,7 @@ const imageSrc = computed(() => (isGoalAchieved.value ? barnOpen : barnClosed));
 
 const goalAchieved = () => {
   if (isGoalAchieved.value) {
+    store.rollReward();
     router.push("/farm");
   }
 };

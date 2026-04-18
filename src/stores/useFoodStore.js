@@ -31,11 +31,13 @@ export const useFoodStore = defineStore("food", () => {
   const fatGoal = ref(stored.fatGoal ?? 0);
   const searchResults = ref([]);
   const savedMeals = ref(stored.savedMeals ?? []);
+  const chickens = ref(stored.chickens ?? 0);
+
+  const lastRewardDate = ref(stored.lastRewardDate ?? null);
 
   function setGoal(newGoal) {
     goal.value = newGoal;
   }
-  console.log(goal.value);
 
   function setMacros(proteinPercent, carbPercent, fatPercent) {
     proteinGoal.value = (goal.value * proteinPercent) / 100 / 4;
@@ -49,8 +51,33 @@ export const useFoodStore = defineStore("food", () => {
     searchResults.value = result.hints;
   }
 
+  function rollReward() {
+    const today = new Date().toDateString();
+    const rndNum = Math.floor(Math.random() * 2);
+    if (lastRewardDate.value !== today) {
+      if (
+        eaten.value < goal.value + 50 &&
+        eaten.value > goal.value - 50 &&
+        goal.value !== 0
+      ) {
+        if (rndNum === 1) {
+          chickens.value++;
+        }
+      }
+      lastRewardDate.value = today;
+    }
+  }
+
   watch(
-    [goal, proteinGoal, carbGoal, fatGoal, savedMeals],
+    [
+      goal,
+      proteinGoal,
+      carbGoal,
+      fatGoal,
+      savedMeals,
+      chickens,
+      lastRewardDate,
+    ],
     () => {
       localStorage.setItem(
         "veggieTracker",
@@ -60,6 +87,8 @@ export const useFoodStore = defineStore("food", () => {
           carbGoal: carbGoal.value,
           fatGoal: fatGoal.value,
           savedMeals: savedMeals.value,
+          chickens: chickens.value,
+          lastRewardDate: lastRewardDate.value,
         }),
       );
     },
@@ -80,5 +109,8 @@ export const useFoodStore = defineStore("food", () => {
     fetchFood,
     savedMeals,
     setMacros,
+    chickens,
+    lastRewardDate,
+    rollReward,
   };
 });
