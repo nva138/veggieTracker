@@ -8,7 +8,7 @@ const store = useFoodStore();
 const searchInput = ref("");
 
 function handleSearch() {
-  if (store.goal === 0) return;
+  if (store.goal === 0) return "Please enter a Goal!";
   store.fetchFood(searchInput.value);
   router.push("/add-meal");
 }
@@ -47,7 +47,9 @@ function handleSearch() {
         type="search"
         id="search"
         class="block w-full p-3 ps-9 bg-white border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-green-500 focus:border-green-500 placeholder:text-gray-400"
-        placeholder="Search"
+        :placeholder="
+          store.goal === 0 ? 'Please enter a Goal!' : 'Search food...'
+        "
         required
       />
       <button
