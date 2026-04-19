@@ -31,7 +31,15 @@ export const useFoodStore = defineStore("food", () => {
   const fatGoal = ref(stored.fatGoal ?? 0);
   const searchResults = ref([]);
   const savedMeals = ref(stored.savedMeals ?? []);
-  const chickens = ref(stored.chickens ?? 0);
+  const inventory = ref(stored.inventory ?? {});
+
+  const rewardPool = {
+    calf: 10,
+    lamb: 10,
+    chicken: 30,
+    piglet: 15,
+    nothing: 35,
+  };
 
   const lastRewardDate = ref(stored.lastRewardDate ?? null);
 
@@ -53,15 +61,22 @@ export const useFoodStore = defineStore("food", () => {
 
   function rollReward() {
     const today = new Date().toDateString();
-    const rndNum = Math.floor(Math.random() * 2);
     if (lastRewardDate.value !== today) {
       if (
         eaten.value < goal.value + 50 &&
         eaten.value > goal.value - 50 &&
         goal.value !== 0
       ) {
-        if (rndNum === 1) {
-          chickens.value++;
+        const total = Object.values(rewardPool).reduce((s, w) => s + w, 0);
+        let r = Math.random() * total;
+        for (const [key, weight] of Object.entries(rewardPool)) {
+          r -= weight;
+          if (r <= 0) {
+            if (key !== "nothing") {
+              inventory.value[key] = (inventory.value[key] ?? 0) + 1;
+            }
+            break;
+          }
         }
       }
       lastRewardDate.value = today;
@@ -75,8 +90,8 @@ export const useFoodStore = defineStore("food", () => {
       carbGoal,
       fatGoal,
       savedMeals,
-      chickens,
       lastRewardDate,
+      inventory,
     ],
     () => {
       localStorage.setItem(
@@ -87,8 +102,8 @@ export const useFoodStore = defineStore("food", () => {
           carbGoal: carbGoal.value,
           fatGoal: fatGoal.value,
           savedMeals: savedMeals.value,
-          chickens: chickens.value,
           lastRewardDate: lastRewardDate.value,
+          inventory: inventory.value,
         }),
       );
     },
@@ -109,8 +124,9 @@ export const useFoodStore = defineStore("food", () => {
     fetchFood,
     savedMeals,
     setMacros,
-    chickens,
     lastRewardDate,
     rollReward,
+    inventory,
+    rewardPool,
   };
 });
