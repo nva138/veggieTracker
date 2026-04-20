@@ -9,6 +9,10 @@ function toggleDate(date) {
   expandedDate.value = expandedDate.value === date ? null : date;
 }
 
+function removeMeal(id) {
+  store.savedMeals = store.savedMeals.filter((meal) => meal.id !== id);
+}
+
 const groupedMeals = computed(() => {
   return store.savedMeals.reduce((acc, meal) => {
     if (!acc[meal.date]) acc[meal.date] = [];
@@ -73,7 +77,7 @@ const dailyTotals = computed(() => {
         <li
           v-for="meal in meals"
           :key="meal.id"
-          class="py-3 flex justify-between items-center"
+          class="py-3 flex justify-between items-center gap-2"
         >
           <div class="w-full">
             <div class="flex items-center gap-2 mb-1">
@@ -97,6 +101,13 @@ const dailyTotals = computed(() => {
               </p>
             </div>
           </div>
+          <button
+            @click="removeMeal(meal.id)"
+            class="shrink-0 w-7 h-7 rounded-full text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition text-sm"
+            aria-label="Delete meal"
+          >
+            ✕
+          </button>
         </li>
       </ul>
     </div>
