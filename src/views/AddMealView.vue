@@ -24,7 +24,8 @@ const resetRefValue = () => (selectedFood.value = 0);
             <p class="text-sm font-medium">{{ food.product_name }}</p>
             <p class="text-xs text-gray-400">
               {{ Math.round(food.nutriments?.["energy-kcal_100g"]) }} kcal ·
-              {{ Math.round(food.nutriments?.proteins_100g) }}g Protein · per 100g
+              {{ Math.round(food.nutriments?.proteins_100g) }}g Protein · per
+              100g
             </p>
           </div>
           <button
@@ -47,6 +48,7 @@ const resetRefValue = () => (selectedFood.value = 0);
       @resetRefValue="resetRefValue"
     />
   </div>
+  <MainNav />
 </template>
 
 <style scoped></style>
