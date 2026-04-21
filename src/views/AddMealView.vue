@@ -3,6 +3,7 @@ import { useFoodStore } from "../stores/useFoodStore";
 import SearchBar from "../components/dashboard/SearchBar.vue";
 import AddMealModal from "../components/addMeal/AddMealModal.vue";
 import { ref } from "vue";
+import MainNav from "../components/global/MainNav.vue";
 
 const store = useFoodStore();
 const selectedFood = ref(null);
@@ -39,7 +40,7 @@ const resetRefValue = () => (selectedFood.value = 0);
       </ul>
     </div>
 
-    <div class="fixed bottom-16 left-0 right-0 px-4">
+    <div class="fixed bottom-24 left-0 right-0 px-4">
       <SearchBar />
     </div>
     <AddMealModal
@@ -50,5 +51,3 @@ const resetRefValue = () => (selectedFood.value = 0);
   </div>
   <MainNav />
 </template>
-
-<style scoped></style>
