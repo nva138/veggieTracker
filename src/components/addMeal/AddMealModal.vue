@@ -10,14 +10,20 @@ const amountInput = ref(null);
 const mealType = ref("");
 
 const calcCalories = () =>
-  Math.floor((props.food.nutriments["energy-kcal_100g"] / 100) * amountInput.value);
+  Math.floor(
+    (props.food.nutriments?.["energy-kcal_100g"] / 100) * amountInput.value,
+  ) || 0;
 
 const calcProteins = () =>
-  Math.floor((props.food.nutriments.proteins_100g / 100) * amountInput.value);
+  Math.floor(
+    (props.food.nutriments?.proteins_100g / 100) * amountInput.value,
+  ) || 0;
 const calcFats = () =>
-  Math.floor((props.food.nutriments.fat_100g / 100) * amountInput.value);
+  Math.floor((props.food.nutriments?.fat_100g / 100) * amountInput.value) || 0;
 const calcCarbs = () =>
-  Math.floor((props.food.nutriments.carbohydrates_100g / 100) * amountInput.value);
+  Math.floor(
+    (props.food.nutriments?.carbohydrates_100g / 100) * amountInput.value,
+  ) || 0;
 
 function pushSelectedFood() {
   store.savedMeals.push({

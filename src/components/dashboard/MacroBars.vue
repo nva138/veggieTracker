@@ -10,9 +10,11 @@ const props = defineProps({
   fatGoal: Number,
 });
 
-const calcProtein = computed(() => (props.protein / props.proteinGoal) * 100);
-const calcCarbs = computed(() => (props.carb / props.carbGoal) * 100);
-const calcFat = computed(() => (props.fat / props.fatGoal) * 100);
+const calcProtein = computed(
+  () => (props.protein / props.proteinGoal) * 100 || 0,
+);
+const calcCarbs = computed(() => (props.carb / props.carbGoal) * 100 || 0);
+const calcFat = computed(() => (props.fat / props.fatGoal) * 100 || 0);
 
 const proteinRemaining = computed(function () {
   const proteinProgress = props.proteinGoal - props.protein;

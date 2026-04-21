@@ -7,6 +7,7 @@ const router = useRouter();
 const store = useFoodStore();
 const searchInput = ref("");
 const showScanner = ref(false);
+const errorMessage = ref("");
 
 function handleSearch() {
   if (store.goal === 0) return "Please enter a Goal!";
@@ -18,6 +19,11 @@ function handleBarcode(barcode) {
   searchInput.value = barcode;
   store.fetchFoodByBarcode(searchInput.value);
   router.push("/add-meal");
+}
+
+function handleRefuse() {
+  showScanner.value = false;
+  errorMessage.value = "You need to allow to use the camera for barcodescan";
 }
 </script>
 <template>
@@ -59,7 +65,11 @@ function handleBarcode(barcode) {
         "
         required
       />
-      <BarcodeScanner v-if="showScanner" @barcode-detected="handleBarcode" />
+      <BarcodeScanner
+        v-if="showScanner"
+        @barcode-detected="handleBarcode"
+        @refuse-camera="handleRefuse"
+      />
       <div class="absolute end-1.5 bottom-1.5 flex gap-1.5">
         <button
           @click="showScanner = !showScanner"
@@ -91,5 +101,6 @@ function handleBarcode(barcode) {
       </div>
     </div>
   </form>
+  <p v-if="errorMessage" class="mt-2 text-sm text-red-500 text-center">{{ errorMessage }}</p>
 </template>
 <style scoped></style>

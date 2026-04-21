@@ -3,7 +3,10 @@ import { ref, computed, watch } from "vue";
 import { searchFood, searchByBarcode } from "../services/foodService";
 
 export const useFoodStore = defineStore("food", () => {
-  const stored = JSON.parse(localStorage.getItem("veggieTracker")) || {};
+  let stored = {};
+  try {
+    stored = JSON.parse(localStorage.getItem("veggieTracker")) || {};
+  } catch {}
 
   const eaten = computed(() =>
     savedMeals.value.reduce(function (sum, meal) {
@@ -32,6 +35,7 @@ export const useFoodStore = defineStore("food", () => {
   const searchResults = ref([]);
   const savedMeals = ref(stored.savedMeals ?? []);
   const inventory = ref(stored.inventory ?? {});
+  const errorMessage = ref("");
 
   const rewardPool = {
     calf: 10,
@@ -54,14 +58,27 @@ export const useFoodStore = defineStore("food", () => {
   }
 
   async function fetchFood(query) {
-    const result = await searchFood(query);
-    searchResults.value = result.products;
-    console.log(result.products[0]);
+    try {
+      const result = await searchFood(query);
+      searchResults.value = result.products;
+      errorMessage.value = "";
+    } catch (error) {
+      errorMessage.value = "Error!";
+    }
   }
 
   async function fetchFoodByBarcode(query) {
-    const result = await searchByBarcode(query);
-    searchResults.value = [result.product];
+    try {
+      const result = await searchByBarcode(query);
+      if (result.product) {
+        searchResults.value = [result.product];
+        errorMessage.value = "";
+      } else {
+        errorMessage.value = "Product not found!";
+      }
+    } catch (error) {
+      errorMessage.value = "Error!";
+    }
   }
 
   function rollReward() {
@@ -99,18 +116,20 @@ export const useFoodStore = defineStore("food", () => {
       inventory,
     ],
     () => {
-      localStorage.setItem(
-        "veggieTracker",
-        JSON.stringify({
-          goal: goal.value,
-          proteinGoal: proteinGoal.value,
-          carbGoal: carbGoal.value,
-          fatGoal: fatGoal.value,
-          savedMeals: savedMeals.value,
-          lastRewardDate: lastRewardDate.value,
-          inventory: inventory.value,
-        }),
-      );
+      try {
+        localStorage.setItem(
+          "veggieTracker",
+          JSON.stringify({
+            goal: goal.value,
+            proteinGoal: proteinGoal.value,
+            carbGoal: carbGoal.value,
+            fatGoal: fatGoal.value,
+            savedMeals: savedMeals.value,
+            lastRewardDate: lastRewardDate.value,
+            inventory: inventory.value,
+          }),
+        );
+      } catch {}
     },
     { deep: true },
   );
@@ -134,5 +153,6 @@ export const useFoodStore = defineStore("food", () => {
     inventory,
     rewardPool,
     fetchFoodByBarcode,
+    errorMessage,
   };
 });

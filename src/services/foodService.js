@@ -1,12 +1,12 @@
 export async function searchFood(query) {
   try {
     const response = await fetch(
-      `https://world.openfoodfacts.org/api/v2/search?search_terms=${query}&fields=product_name,nutriments`,
+      `https://world.openfoodfacts.org/cgi/search.pl?action=process&search_terms=${query}&json=1&fields=product_name,nutriments`,
     );
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
@@ -18,6 +18,6 @@ export async function searchByBarcode(query) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }

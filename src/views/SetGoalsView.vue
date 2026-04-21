@@ -24,7 +24,6 @@ function saveGoals() {
   store.setGoal(calories.value);
   store.setMacros(protein.value, carbs.value, fat.value);
   router.push("/dashboard");
-  console.log(store.goal, protein.value, carbs.value, fat.value);
 }
 </script>
 
