@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref, computed, watch } from "vue";
-import { searchFood } from "../services/edamamService";
+import { searchFood, searchByBarcode } from "../services/foodService";
 
 export const useFoodStore = defineStore("food", () => {
   const stored = JSON.parse(localStorage.getItem("veggieTracker")) || {};
@@ -55,8 +55,13 @@ export const useFoodStore = defineStore("food", () => {
 
   async function fetchFood(query) {
     const result = await searchFood(query);
-    console.log(result);
-    searchResults.value = result.hints;
+    searchResults.value = result.products;
+    console.log(result.products[0]);
+  }
+
+  async function fetchFoodByBarcode(query) {
+    const result = await searchByBarcode(query);
+    searchResults.value = [result.product];
   }
 
   function rollReward() {
@@ -128,5 +133,6 @@ export const useFoodStore = defineStore("food", () => {
     rollReward,
     inventory,
     rewardPool,
+    fetchFoodByBarcode,
   };
 });

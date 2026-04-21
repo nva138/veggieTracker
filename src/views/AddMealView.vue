@@ -21,15 +21,15 @@ const resetRefValue = () => (selectedFood.value = 0);
           class="flex items-center justify-between px-4 py-3"
         >
           <div>
-            <p class="text-sm font-medium">{{ food.food.label }}</p>
+            <p class="text-sm font-medium">{{ food.product_name }}</p>
             <p class="text-xs text-gray-400">
-              {{ Math.round(food.food.nutrients.ENERC_KCAL) }} kcal ·
-              {{ Math.round(food.food.nutrients.PROCNT) }}g Protein · per 100g
+              {{ Math.round(food.nutriments?.["energy-kcal_100g"]) }} kcal ·
+              {{ Math.round(food.nutriments?.proteins_100g) }}g Protein · per 100g
             </p>
           </div>
           <button
             class="text-xs bg-green-500 hover:bg-green-600 text-white font-medium px-3 py-1.5 rounded-lg"
-            @click="selectedFood = food.food"
+            @click="selectedFood = food"
             @click.stop
           >
             Add

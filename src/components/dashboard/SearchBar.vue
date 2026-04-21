@@ -2,14 +2,21 @@
 import { useFoodStore } from "../../stores/useFoodStore";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import BarcodeScanner from "../dashboard/BarcodeScanner.vue";
 const router = useRouter();
-
 const store = useFoodStore();
 const searchInput = ref("");
+const showScanner = ref(false);
 
 function handleSearch() {
   if (store.goal === 0) return "Please enter a Goal!";
   store.fetchFood(searchInput.value);
+  router.push("/add-meal");
+}
+
+function handleBarcode(barcode) {
+  searchInput.value = barcode;
+  store.fetchFoodByBarcode(searchInput.value);
   router.push("/add-meal");
 }
 </script>
@@ -52,13 +59,36 @@ function handleSearch() {
         "
         required
       />
-      <button
-        @click="handleSearch"
-        type="button"
-        class="absolute end-1.5 bottom-1.5 text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-xs px-3 py-1.5 focus:outline-none"
-      >
-        Search
-      </button>
+      <BarcodeScanner v-if="showScanner" @barcode-detected="handleBarcode" />
+      <div class="absolute end-1.5 bottom-1.5 flex gap-1.5">
+        <button
+          @click="showScanner = !showScanner"
+          type="button"
+          class="text-green-500 hover:text-green-600 p-1.5 focus:outline-none"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 9V6a1 1 0 0 1 1-1h3M3 15v3a1 1 0 0 0 1 1h3m11-4v3a1 1 0 0 1-1 1h-3m4-11h-3a1 1 0 0 0-1 1v3M7 7h.01M7 12h.01M7 17h.01M12 7h.01M12 12h.01M12 17h.01M17 7h.01M17 12h.01M17 17h.01"
+            />
+          </svg>
+        </button>
+        <button
+          @click="handleSearch"
+          type="button"
+          class="text-white bg-green-500 hover:bg-green-600 font-medium rounded-lg text-xs px-3 py-1.5 focus:outline-none"
+        >
+          Search
+        </button>
+      </div>
     </div>
   </form>
 </template>
