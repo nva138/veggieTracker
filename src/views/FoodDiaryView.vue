@@ -2,6 +2,7 @@
 import MainNav from "../components/global/MainNav.vue";
 import { useFoodStore } from "../stores/useFoodStore";
 import { computed, ref } from "vue";
+import { RouterLink } from "vue-router";
 const store = useFoodStore();
 const expandedDate = ref(null);
 
@@ -33,6 +34,30 @@ const dailyTotals = computed(() => {
 </script>
 <template>
   <div class="w-[92%] mx-auto mt-4 space-y-4 pb-24">
+    <div
+      v-if="Object.keys(groupedMeals).length === 0"
+      class="rounded-2xl shadow-lg bg-white/10 p-8 flex flex-col items-center text-center"
+    >
+      <div
+        class="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center text-3xl mb-4"
+      >
+        🥗
+      </div>
+      <h3 class="text-base font-semibold text-gray-800 mb-1">
+        No meals yet
+      </h3>
+      <p class="text-xs text-gray-600 mb-5 max-w-xs">
+        Your food diary is empty. Add your first meal and keep track of
+        your goals.
+      </p>
+      <RouterLink
+        to="/add-meal"
+        class="rounded-xl bg-green-500/20 border border-green-500/30 text-gray-800 text-sm font-semibold px-4 py-2 hover:bg-green-500/30 transition"
+      >
+        + Add meal
+      </RouterLink>
+    </div>
+
     <div
       v-for="(meals, date) in groupedMeals"
       :key="date"
