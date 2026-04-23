@@ -8,6 +8,7 @@ const props = defineProps(["food"]);
 const emits = defineEmits(["resetRefValue"]);
 const amountInput = ref(null);
 const mealType = ref("");
+const error = ref(false);
 
 const calcCalories = () =>
   Math.floor(
@@ -75,7 +76,7 @@ function pushSelectedFood() {
           <p class="text-xs text-gray-400 mb-4">per 100g</p>
           <div class="grid grid-cols-2 gap-2">
             <div class="bg-gray-50 rounded-xl p-3">
-              <p class="text-xs text-gray-400">Kalorien</p>
+              <p class="text-xs text-gray-400">Calories</p>
               <p class="text-sm font-semibold text-gray-700">
                 {{ Math.round(props.food.nutriments["energy-kcal_100g"]) }} kcal
               </p>
@@ -93,7 +94,7 @@ function pushSelectedFood() {
               </p>
             </div>
             <div class="bg-gray-50 rounded-xl p-3">
-              <p class="text-xs text-gray-400">Fett</p>
+              <p class="text-xs text-gray-400">Fat</p>
               <p class="text-sm font-semibold text-gray-700">
                 {{ Math.round(props.food.nutriments.fat_100g) }}g
               </p>
@@ -116,7 +117,7 @@ function pushSelectedFood() {
           <p class="text-xs text-gray-400 mb-4">per {{ amountInput }}g</p>
           <div class="grid grid-cols-2 gap-2">
             <div class="bg-green-50 rounded-xl p-3">
-              <p class="text-xs text-gray-400">Kalorien</p>
+              <p class="text-xs text-gray-400">Calories</p>
               <p class="text-sm font-semibold text-green-600">
                 {{ calcCalories() }} kcal
               </p>
@@ -134,7 +135,7 @@ function pushSelectedFood() {
               </p>
             </div>
             <div class="bg-green-50 rounded-xl p-3">
-              <p class="text-xs text-gray-400">Fett</p>
+              <p class="text-xs text-gray-400">Fat</p>
               <p class="text-sm font-semibold text-green-600">
                 {{ calcFats() }}g
               </p>
@@ -152,6 +153,7 @@ function pushSelectedFood() {
           class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
       </div>
+      <p v-if="error" class="text-xs text-red-400 mt-1">Please enter an amount</p>
 
       <div class="mb-4">
         <label class="text-sm font-medium text-gray-600 block mb-2"
@@ -207,7 +209,9 @@ function pushSelectedFood() {
 
       <div class="flex justify-end">
         <button
-          @click.stop="pushSelectedFood()"
+          @click.stop="
+            Number(amountInput) > 0 ? pushSelectedFood() : (error = true)
+          "
           :disabled="mealType === ''"
           class="bg-green-500 hover:bg-green-600 text-white font-medium text-sm px-5 py-2.5 rounded-xl"
         >

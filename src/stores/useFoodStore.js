@@ -56,6 +56,23 @@ export const useFoodStore = defineStore("food", () => {
     fatGoal.value = (goal.value * fatPercent) / 100 / 9;
   }
 
+  async function fetchFood(query) {
+    try {
+      const result = await searchFood(query);
+      searchResults.value =
+        result.products?.filter(
+          (product) =>
+            product.product_name != null &&
+            product.product_name != "" &&
+            product.nutriments?.["energy-kcal_100g"] != null,
+        ) ?? [];
+
+      errorMessage.value = "";
+    } catch (error) {
+      errorMessage.value = "Error!";
+    }
+  }
+
   async function fetchFoodByBarcode(query) {
     try {
       const result = await searchByBarcode(query);
