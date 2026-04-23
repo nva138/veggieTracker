@@ -56,16 +56,6 @@ export const useFoodStore = defineStore("food", () => {
     fatGoal.value = (goal.value * fatPercent) / 100 / 9;
   }
 
-  async function fetchFood(query) {
-    try {
-      const result = await searchFood(query);
-      searchResults.value = result.products;
-      errorMessage.value = "";
-    } catch (error) {
-      errorMessage.value = "Error!";
-    }
-  }
-
   async function fetchFoodByBarcode(query) {
     try {
       const result = await searchByBarcode(query);
