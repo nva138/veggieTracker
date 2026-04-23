@@ -36,6 +36,7 @@ export const useFoodStore = defineStore("food", () => {
   const savedMeals = ref(stored.savedMeals ?? []);
   const inventory = ref(stored.inventory ?? {});
   const errorMessage = ref("");
+  const lastRewardDate = ref(stored.lastRewardDate ?? null);
 
   const rewardPool = {
     calf: 10,
@@ -44,8 +45,6 @@ export const useFoodStore = defineStore("food", () => {
     piglet: 15,
     nothing: 35,
   };
-
-  const lastRewardDate = ref(stored.lastRewardDate ?? null);
 
   function setGoal(newGoal) {
     goal.value = newGoal;
