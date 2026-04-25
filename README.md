@@ -26,7 +26,6 @@ A mobile-first food tracking app for vegetarians. Log meals, track macros, and u
 - **Vue 3** + Vite
 - **Pinia** for state management
 - **Tailwind CSS** for styling
-- **Firebase** (Firestore + Auth)
 - **Open Food Facts API** for food data
 - **ZXing** for barcode scanning
 
