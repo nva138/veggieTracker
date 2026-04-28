@@ -153,7 +153,9 @@ function pushSelectedFood() {
           class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
         />
       </div>
-      <p v-if="error" class="text-xs text-red-400 mt-1">Please enter an amount</p>
+      <p v-if="error" class="text-xs text-red-400 mt-1">
+        Please enter an amount
+      </p>
 
       <div class="mb-4">
         <label class="text-sm font-medium text-gray-600 block mb-2"

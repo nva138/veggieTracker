@@ -1,16 +1,14 @@
 <script setup>
-import { onMounted } from "vue";
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-onMounted(() => {
-  router.replace({ name: "Dashboard" });
-});
+import { ref } from "vue";
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Login</h1>
+  <div class="flex-1">
+    <form>
+      <input placeholder="Username" />
+      <input placeholder="Password" />
+    </form>
+  </div>
 </template>
 
 <style scoped></style>
