@@ -10,7 +10,8 @@ onMounted(() => {
   reader
     .decodeFromVideoDevice(null, videoEl.value, (result, error) => {
       if (result) emit("barcode-detected", result.getText());
-      else if (error && !(error instanceof NotFoundException)) console.error(error);
+      else if (error && !(error instanceof NotFoundException))
+        console.error(error);
     })
     .catch(() => emit("refuse-camera"));
 });

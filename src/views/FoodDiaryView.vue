@@ -113,7 +113,7 @@ const dailyTotals = computed(() => {
                 <span v-else-if="meal.mealType === 'snack'">🍿</span>
               </span>
               <p class="text-sm font-semibold text-gray-800">
-                {{ meal.meal }}
+                {{ meal.name }}
               </p>
             </div>
             <div class="flex justify-between items-center">

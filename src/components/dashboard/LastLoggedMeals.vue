@@ -32,7 +32,7 @@ function removeMeal(id) {
           >
             <div class="w-full">
               <p class="text-sm font-semibold text-gray-800 mb-1">
-                {{ foodItem.meal }}
+                {{ foodItem.name }}
               </p>
               <div class="flex justify-between items-center">
                 <p class="text-xs text-gray-400">

@@ -29,7 +29,7 @@ const calcCarbs = () =>
 function pushSelectedFood() {
   store.savedMeals.push({
     id: crypto.randomUUID(),
-    meal: props.food.product_name,
+    name: props.food.product_name,
     calories: calcCalories(),
     proteins: calcProteins(),
     carbs: calcCarbs(),

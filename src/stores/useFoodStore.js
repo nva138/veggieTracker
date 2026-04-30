@@ -73,6 +73,15 @@ export const useFoodStore = defineStore("food", () => {
     }
   }
 
+  async function loadMeals() {
+    try {
+      const result = await request("GET", "/meals");
+      savedMeals.value = result;
+    } catch (error) {
+      errorMessage.value = "Error!";
+    }
+  }
+
   async function fetchFoodByBarcode(query) {
     try {
       const result = await searchByBarcode(query);
@@ -160,5 +169,6 @@ export const useFoodStore = defineStore("food", () => {
     rewardPool,
     fetchFoodByBarcode,
     errorMessage,
+    loadMeals,
   };
 });

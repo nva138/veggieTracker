@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import { request } from "../services/apiService";
 import { useRouter } from "vue-router";
+import { useFoodStore } from "../stores/useFoodStore";
+const store = useFoodStore();
 const router = useRouter();
 
 const userName = ref("");
@@ -15,6 +17,7 @@ async function login() {
   console.log(response);
   localStorage.setItem("jwt", response);
 
+  await store.loadMeals();
   router.push("/dashboard");
 }
 </script>
