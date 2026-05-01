@@ -16,6 +16,7 @@ function handleSearch() {
 }
 
 function handleBarcode(barcode) {
+  showScanner.value = false;
   searchInput.value = barcode;
   store.fetchFoodByBarcode(searchInput.value);
   router.push("/add-meal");
@@ -69,6 +70,7 @@ function handleRefuse() {
         v-if="showScanner"
         @barcode-detected="handleBarcode"
         @refuse-camera="handleRefuse"
+        @close="showScanner = false"
       />
       <div class="absolute end-1.5 bottom-1.5 flex gap-1.5">
         <button
