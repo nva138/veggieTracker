@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref, computed, watch } from "vue";
 import { searchFood, searchByBarcode } from "../services/foodService";
+import { request } from "../services/apiService";
 
 export const useFoodStore = defineStore("food", () => {
   let stored = {};
@@ -77,6 +78,15 @@ export const useFoodStore = defineStore("food", () => {
     try {
       const result = await request("GET", "/meals");
       savedMeals.value = result;
+    } catch (error) {
+      errorMessage.value = "Error!";
+    }
+  }
+
+  async function addMeal(addedMeals) {
+    try {
+      const result = await request("POST", "/meals", addedMeals);
+      savedMeals.value.push(result);
     } catch (error) {
       errorMessage.value = "Error!";
     }
@@ -170,5 +180,6 @@ export const useFoodStore = defineStore("food", () => {
     fetchFoodByBarcode,
     errorMessage,
     loadMeals,
+    addMeal,
   };
 });
