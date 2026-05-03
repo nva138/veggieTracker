@@ -10,10 +10,6 @@ function toggleDate(date) {
   expandedDate.value = expandedDate.value === date ? null : date;
 }
 
-function removeMeal(id) {
-  store.savedMeals = store.savedMeals.filter((meal) => meal.id !== id);
-}
-
 const groupedMeals = computed(() => {
   return store.savedMeals.reduce((acc, meal) => {
     if (!acc[meal.date]) acc[meal.date] = [];
@@ -43,12 +39,10 @@ const dailyTotals = computed(() => {
       >
         🥗
       </div>
-      <h3 class="text-base font-semibold text-gray-800 mb-1">
-        No meals yet
-      </h3>
+      <h3 class="text-base font-semibold text-gray-800 mb-1">No meals yet</h3>
       <p class="text-xs text-gray-600 mb-5 max-w-xs">
-        Your food diary is empty. Add your first meal and keep track of
-        your goals.
+        Your food diary is empty. Add your first meal and keep track of your
+        goals.
       </p>
       <RouterLink
         to="/add-meal"
@@ -127,7 +121,7 @@ const dailyTotals = computed(() => {
             </div>
           </div>
           <button
-            @click="removeMeal(meal.id)"
+            @click="store.deleteMeal(meal.id)"
             class="shrink-0 w-7 h-7 rounded-full text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition text-sm"
             aria-label="Delete meal"
           >

@@ -92,6 +92,15 @@ export const useFoodStore = defineStore("food", () => {
     }
   }
 
+  async function deleteMeal(id) {
+    try {
+      await request("DELETE", `/meals/${id}`);
+      savedMeals.value = savedMeals.value.filter((meal) => meal.id !== id);
+    } catch (error) {
+      errorMessage.value = "Error!";
+    }
+  }
+
   async function fetchFoodByBarcode(query) {
     try {
       const result = await searchByBarcode(query);
@@ -181,5 +190,6 @@ export const useFoodStore = defineStore("food", () => {
     errorMessage,
     loadMeals,
     addMeal,
+    deleteMeal,
   };
 });
